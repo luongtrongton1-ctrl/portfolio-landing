@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AB — AI Systems & Automation Studio</title>
+    <meta name="description" content="I design and build AI automation systems, intelligent agents, and workflow solutions that help businesses operate smarter, faster, and more efficiently.">
+    <meta property="og:title" content="AB — AI Systems & Automation Studio">
+    <meta property="og:description" content="I design and build AI automation systems, intelligent agents, and workflow solutions.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+    <meta name="theme-color" content="#1E5B43">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">AB<span class="logo-dot">.</span></a>
+            <div class="nav-links" id="navLinks">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#workflow" class="nav-link">Process</a>
+                <a href="#tech" class="nav-link">Tech</a>
+                <a href="#contact" class="nav-link nav-cta">Let's Talk</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <i data-lucide="menu" class="menu-icon"></i>
+                <i data-lucide="x" class="close-icon" style="display: none;"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-bg-effects">
+                <div class="gradient-orb orb-1"></div>
+                <div class="gradient-orb orb-2"></div>
+                <div class="gradient-orb orb-3"></div>
+            </div>
+            <div class="hero-container">
+                <div class="hero-content animate-in">
+                    <div class="hero-badge">
+                        <i data-lucide="sparkles"></i>
+                        <span>AI-Powered Solutions</span>
+                    </div>
+                    <h1 class="hero-title">Building Intelligent Systems<br>That <span class="text-gradient">Actually Work</span></h1>
+                    <p class="hero-description">I design and build AI automation systems, intelligent agents, and workflow solutions that help businesses operate smarter, faster, and more efficiently.</p>
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn btn-primary">
+                            <span>Start a Project</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                        <a href="#projects" class="btn btn-secondary">
+                            <span>View Work</span>
+                            <i data-lucide="eye"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual animate-in" style="animation-delay: 0.2s;">
+                    <div class="hero-card">
+                        <div class="card-header">
+                            <div class="dots">
+                                <span class="dot dot-red"></span>
+                                <span class="dot dot-yellow"></span>
+                                <span class="dot dot-green"></span>
+                            </div>
+                            <span class="card-title">ab_studio.ai</span>
+                        </div>
+                        <div class="card-body">
+                            <code>
+                                <div class="code-line"><span class="keyword">const</span> agent = <span class="keyword">new</span> AIAgent({</div>
+                                <div class="code-line indented"><span class="property">model</span>: <span class="string">'gpt-4-turbo'</span>,</div>
+                                <div class="code-line indented"><span class="property">task</span>: <span class="string">'automate_workflow'</span>,</div>
+                                <div class="code-line indented"><span class="property">accuracy</span>: <span class="number">0.99</span></div>
+                                <div class="code-line">});</div>
+                                <br>
+                                <div class="code-comment">// ✓ 2,847 tasks automated</div>
+                                <div class="code-comment">// ✓ 99.2% success rate<span class="cursor"></span></div>
+                            </code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <i data-lucide="chevrons-down"></i>
+            </div>
+        </section>
+
+        <section class="trust">
+            <div class="trust-container">
+                <div class="trust-stats">
+                    <div class="stat-item animate-in">
+                        <span class="stat-number">3+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat-item animate-in" style="animation-delay: 0.1s;">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Projects Delivered</span>
+                    </div>
+                    <div class="stat-item animate-in" style="animation-delay: 0.2s;">
+                        <span class="stat-number">99%</span>
+                        <span class="stat-label">Client Satisfaction</span>
+                    </div>
+                    <div class="stat-item animate-in" style="animation-delay: 0.3s;">
+                        <span class="stat-number">2.8K+</span>
+                        <span class="stat-label">Tasks Automated</span>
+                    </div>
+                </div>
+                <div class="trust-logos animate-in" style="animation-delay: 0.4s;">
+                    <p>Technologies I work with</p>
+                    <div class="logos-track">
+                        <span class="logo-item">Python</span>
+                        <span class="logo-item">TensorFlow</span>
+                        <span class="logo-item">OpenAI</span>
+                        <span class="logo-item">LangChain</span>
+                        <span class="logo-item">React</span>
+                        <span class="logo-item">Node.js</span>
+                        <span class="logo-item">PostgreSQL</span>
+                        <span class="logo-item">Docker</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about" id="about">
+            <div class="about-container">
+                <div class="section-header animate-in">
+                    <span class="section-tag">About Me</span>
+                    <h2 class="section-title">Turning Complex Problems Into <span class="text-gradient">Elegant Automations</span></h2>
+                </div>
+                <div class="about-grid">
+                    <div class="about-content animate-in">
+                        <p class="about-lead">I'm an AI Systems Engineer who believes that the best technology is the kind you don't notice — it simply works, quietly making everything better.</p>
+                        <p>With a deep passion for artificial intelligence and automation, I help businesses transform their manual, repetitive processes into intelligent, self-running systems.</p>
+                        <p>I don't just build tools. I build solutions that understand context, learn from data, and deliver measurable results. Every system I create is designed to save time, reduce errors, and scale effortlessly.</p>
+                        
+                        <div class="about-values">
+                            <div class="value-item">
+                                <i data-lucide="target"></i>
+                                <div>
+                                    <h4>Problem-First Thinking</h4>
+                                    <p>I start with your real challenges, not trendy technology.</p>
+                                </div>
+                            </div>
+                            <div class="value-item">
+                                <i data-lucide="layers"></i>
+                                <div>
+                                    <h4>Systems Design</h4>
+                                    <p>I build interconnected systems, not isolated scripts.</p>
+                                </div>
+                            </div>
+                            <div class="value-item">
+                                <i data-lucide="trending-up"></i>
+                                <div>
+                                    <h4>Measurable Impact</h4>
+                                    <p>Every solution is measured by real business outcomes.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image animate-in" style="animation-delay: 0.2s;">
+                        <div class="profile-card">
+                            <div class="profile-avatar">AB</div>
+                            <h3>AI Systems Engineer</h3>
+                            <p>Vietnam 🇻🇳</p>
+                            <div class="profile-stats">
+                                <span>Focus: AI & Automation</span>
+                                <span>Approach: Systems Thinking</span>
+                                <span>Goal: Measurable Impact</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="services" id="services">
+            <div class="services-container">
+                <div class="section-header animate-in">
+                    <span class="section-tag">Services</span>
+                    <h2 class="section-title">What I Can <span class="text-gradient">Build For You</span></h2>
+                    <p class="section-description">End-to-end AI solutions designed to transform how your business operates.</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card card-large animate-in">
+                        <div class="service-icon"><i data-lucide="bot"></i></div>
+                        <h3 class="service-title">AI Agents & Assistants</h3>
+                        <p class="service-description">Custom AI agents that handle customer support, data analysis, content generation, and complex decision-making — operating 24/7 with human-level accuracy.</p>
+                        <div class="service-outcome">
+                            <i data-lucide="check-circle"></i>
+                            <span>Reduce manual work by up to 80%</span>
+                        </div>
+                        <a href="#" class="service-cta">Learn more <i data-lucide="arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="service-card animate-in" style="animation-delay: 0.1s;">
+                        <div class="service-icon"><i data-lucide="workflow"></i></div>
+                        <h3 class="service-title">Workflow Automation</h3>
+                        <p class="service-description">Transform manual processes into automated pipelines that run reliably and scale effortlessly.</p>
+                        <div class="service-outcome">
+                            <i data-lucide="check-circle"></i>
+                            <span>Save 20+ hours per week</span>
+                        </div>
+                        <a href="#" class="service-cta">Learn more <i data-lucide="arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="service-card animate-in" style="animation-delay: 0.2s;">
+                        <div class="service-icon"><i data-lucide="database"></i></div>
+                        <h3 class="service-title">Data Crawling & ETL</h3>
+                        <p class="service-description">Intelligent data collection, processing, and analysis systems built for accuracy and scale.</p>
+                        <div class="service-outcome">
+                            <i data-lucide="check-circle"></i>
+                            <span>Process millions of records</span>
+                        </div>
+                        <a href="#" class="service-cta">Learn more <i data-lucide="arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="service-card animate-in" style="animation-delay: 0.3s;">
+                        <div class="service-icon"><i data-lucide="code"></i></div>
+                        <h3 class="service-title">Internal Tools</h3>
+                        <p class="service-description">Custom dashboards, admin panels, and internal applications that streamline your team's daily work.</p>
+                        <div class="service-outcome">
+                            <i data-lucide="check-circle"></i>
+                            <span>Boost team productivity 3x</span>
+                        </div>
+                        <a href="#" class="service-cta">Learn more <i data-lucide="arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="service-card card-large animate-in" style="animation-delay: 0.4s;">
+                        <div class="service-icon"><i data-lucide="briefcase"></i></div>
+                        <h3 class="service-title">Business Automation</h3>
+                        <p class="service-description">Complete end-to-end automation strategies that connect your tools, data, and workflows into one intelligent system — from CRM to reporting to operations.</p>
+                        <div class="service-outcome">
+                            <i data-lucide="check-circle"></i>
+                            <span>Eliminate 90% of repetitive tasks</span>
+                        </div>
+                        <a href="#" class="service-cta">Learn more <i data-lucide="arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="service-card animate-in" style="animation-delay: 0.5s;">
+                        <div class="service-icon"><i data-lucide="brain"></i></div>
+                        <h3 class="service-title">AI Consulting</h3>
+                        <p class="service-description">Strategic guidance on AI adoption, tool selection, and implementation roadmaps.</p>
+                        <div class="service-outcome">
+                            <i data-lucide="check-circle"></i>
+                            <span>Clear AI strategy in 2 weeks</span>
+                        </div>
+                        <a href="#" class="service-cta">Learn more <i data-lucide="arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="projects" id="projects">
+            <div class="projects-container">
+                <div class="section-header animate-in">
+                    <span class="section-tag">Featured Work</span>
+                    <h2 class="section-title">Projects That <span class="text-gradient">Deliver Results</span></h2>
+                    <p class="section-description">Real solutions built for real businesses. Every project is measured by outcomes.</p>
+                </div>
+                <div class="projects-grid">
+                    <div class="project-card animate-in">
+                        <div class="project-image">
+                            <i data-lucide="bot"></i>
+                        </div>
+                        <div class="project-content">
+                            <span class="project-tag">AI Agent</span>
+                            <h3 class="project-title">Customer Support AI Agent</h3>
+                            <p class="project-description">An intelligent support agent that handles 85% of customer inquiries automatically, reducing response time from hours to seconds while maintaining a 96% satisfaction rate.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">LangChain</span>
+                                <span class="tech-tag">OpenAI</span>
+                                <span class="tech-tag">FastAPI</span>
+                            </div>
+                            <div class="project-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">85%</span>
+                                    <span class="metric-label">Auto-resolved</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">< 3s</span>
+                                    <span class="metric-label">Response Time</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">96%</span>
+                                    <span class="metric-label">Satisfaction</span>
+                                </div>
+                            </div>
+                            <a href="#" class="project-cta">View Case Study <i data-lucide="arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card animate-in" style="animation-delay: 0.1s;">
+                        <div class="project-image">
+                            <i data-lucide="workflow"></i>
+                        </div>
+                        <div class="project-content">
+                            <span class="project-tag">Automation</span>
+                            <h3 class="project-title">E-commerce Automation Pipeline</h3>
+                            <p class="project-description">A complete automation system handling inventory management, order processing, price optimization, and reporting — processing 10,000+ orders daily with zero manual intervention.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">n8n</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Docker</span>
+                            </div>
+                            <div class="project-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">10K+</span>
+                                    <span class="metric-label">Daily Orders</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">0</span>
+                                    <span class="metric-label">Manual Steps</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">40hrs</span>
+                                    <span class="metric-label">Saved/Week</span>
+                                </div>
+                            </div>
+                            <a href="#" class="project-cta">View Case Study <i data-lucide="arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card animate-in" style="animation-delay: 0.2s;">
+                        <div class="project-image">
+                            <i data-lucide="database"></i>
+                        </div>
+                        <div class="project-content">
+                            <span class="project-tag">Data Engineering</span>
+                            <h3 class="project-title">Real-time Market Intelligence Platform</h3>
+                            <p class="project-description">A data crawling and analysis platform that monitors competitor pricing, market trends, and customer sentiment across 500+ sources in real-time.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Scrapy</span>
+                                <span class="tech-tag">Apache Kafka</span>
+                                <span class="tech-tag">React</span>
+                            </div>
+                            <div class="project-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">500+</span>
+                                    <span class="metric-label">Data Sources</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">Real-time</span>
+                                    <span class="metric-label">Updates</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">2M+</span>
+                                    <span class="metric-label">Records/Day</span>
+                                </div>
+                            </div>
+                            <a href="#" class="project-cta">View Case Study <i data-lucide="arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="workflow" id="workflow">
+            <div class="workflow-container">
+                <div class="section-header animate-in">
+                    <span class="section-tag">My Process</span>
+                    <h2 class="section-title">From Idea to <span class="text-gradient">Production</span></h2>
+                    <p class="section-description">A proven methodology that ensures every project delivers maximum value.</p>
+                </div>
+                <div class="workflow-timeline">
+                    <div class="workflow-step animate-in">
+                        <div class="step-marker">
+                            <span class="step-number">01</span>
+                            <div class="step-line"></div>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="step-title">Discovery & Research</h3>
+                            <p class="step-description">Deep dive into your business, processes, and pain points. I identify the highest-impact opportunities for automation and AI.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step animate-in">
+                        <div class="step-marker">
+                            <span class="step-number">02</span>
+                            <div class="step-line"></div>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="step-title">Strategy & Architecture</h3>
+                            <p class="step-description">Design the system architecture, define data flows, select technologies, and create a clear implementation roadmap.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step animate-in">
+                        <div class="step-marker">
+                            <span class="step-number">03</span>
+                            <div class="step-line"></div>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="step-title">Rapid Prototyping</h3>
+                            <p class="step-description">Build a working prototype quickly to validate the approach, gather feedback, and iterate before full development.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step animate-in">
+                        <div class="step-marker">
+                            <span class="step-number">04</span>
+                            <div class="step-line"></div>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="step-title">Development & Automation</h3>
+                            <p class="step-description">Build the complete system with clean, maintainable code. Integrate AI models, set up automation pipelines, and connect all moving parts.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step animate-in">
+                        <div class="step-marker">
+                            <span class="step-number">05</span>
+                            <div class="step-line"></div>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="step-title">Testing & Deployment</h3>
+                            <p class="step-description">Rigorous testing, performance optimization, and smooth deployment to production with monitoring and alerting.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step animate-in">
+                        <div class="step-marker">
+                            <span class="step-number">06</span>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="step-title">Optimization & Scale</h3>
+                            <p class="step-description">Continuous monitoring, performance tuning, and scaling the system as your business grows. I ensure long-term success.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tech-stack" id="tech">
+            <div class="tech-container">
+                <div class="section-header animate-in">
+                    <span class="section-tag">Tech Stack</span>
+                    <h2 class="section-title">Tools I <span class="text-gradient">Master</span></h2>
+                </div>
+                <div class="tech-categories">
+                    <div class="tech-category animate-in">
+                        <h3 class="category-title"><i data-lucide="brain"></i> Artificial Intelligence</h3>
+                        <div class="tech-items">
+                            <div class="tech-item"><span class="tech-name">OpenAI GPT</span></div>
+                            <div class="tech-item"><span class="tech-name">LangChain</span></div>
+                            <div class="tech-item"><span class="tech-name">TensorFlow</span></div>
+                            <div class="tech-item"><span class="tech-name">Hugging Face</span></div>
+                            <div class="tech-item"><span class="tech-name">Pinecone</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-category animate-in" style="animation-delay: 0.1s;">
+                        <h3 class="category-title"><i data-lucide="workflow"></i> Automation</h3>
+                        <div class="tech-items">
+                            <div class="tech-item"><span class="tech-name">n8n</span></div>
+                            <div class="tech-item"><span class="tech-name">Make (Integromat)</span></div>
+                            <div class="tech-item"><span class="tech-name">Zapier</span></div>
+                            <div class="tech-item"><span class="tech-name">Selenium</span></div>
+                            <div class="tech-item"><span class="tech-name">Puppeteer</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-category animate-in" style="animation-delay: 0.2s;">
+                        <h3 class="category-title"><i data-lucide="server"></i> Backend</h3>
+                        <div class="tech-items">
+                            <div class="tech-item"><span class="tech-name">Python</span></div>
+                            <div class="tech-item"><span class="tech-name">FastAPI</span></div>
+                            <div class="tech-item"><span class="tech-name">Node.js</span></div>
+                            <div class="tech-item"><span class="tech-name">Django</span></div>
+                            <div class="tech-item"><span class="tech-name">Express</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-category animate-in" style="animation-delay: 0.3s;">
+                        <h3 class="category-title"><i data-lucide="layout"></i> Frontend</h3>
+                        <div class="tech-items">
+                            <div class="tech-item"><span class="tech-name">React</span></div>
+                            <div class="tech-item"><span class="tech-name">Next.js</span></div>
+                            <div class="tech-item"><span class="tech-name">TypeScript</span></div>
+                            <div class="tech-item"><span class="tech-name">Tailwind CSS</span></div>
+                            <div class="tech-item"><span class="tech-name">Vue.js</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-category animate-in" style="animation-delay: 0.4s;">
+                        <h3 class="category-title"><i data-lucide="cloud"></i> Infrastructure</h3>
+                        <div class="tech-items">
+                            <div class="tech-item"><span class="tech-name">Docker</span></div>
+                            <div class="tech-item"><span class="tech-name">AWS</span></div>
+                            <div class="tech-item"><span class="tech-name">Google Cloud</span></div>
+                            <div class="tech-item"><span class="tech-name">Vercel</span></div>
+                            <div class="tech-item"><span class="tech-name">GitHub Actions</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-category animate-in" style="animation-delay: 0.5s;">
+                        <h3 class="category-title"><i data-lucide="database"></i> Database</h3>
+                        <div class="tech-items">
+                            <div class="tech-item"><span class="tech-name">PostgreSQL</span></div>
+                            <div class="tech-item"><span class="tech-name">MongoDB</span></div>
+                            <div class="tech-item"><span class="tech-name">Redis</span></div>
+                            <div class="tech-item"><span class="tech-name">Supabase</span></div>
+                            <div class="tech-item"><span class="tech-name">Firebase</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="philosophy" id="philosophy">
+            <div class="philosophy-container">
+                <div class="section-header animate-in">
+                    <span class="section-tag">Philosophy</span>
+                    <h2 class="section-title">What I <span class="text-gradient">Believe In</span></h2>
+                </div>
+                <div class="philosophy-grid">
+                    <div class="philosophy-card animate-in">
+                        <div class="philosophy-icon"><i data-lucide="zap"></i></div>
+                        <h3 class="philosophy-title">Automation Is Freedom</h3>
+                        <p class="philosophy-text">Every hour spent on repetitive tasks is an hour stolen from creative work. I build systems that give people their time back — so they can focus on what truly matters.</p>
+                    </div>
+                    
+                    <div class="philosophy-card animate-in" style="animation-delay: 0.1s;">
+                        <div class="philosophy-icon"><i data-lucide="compass"></i></div>
+                        <h3 class="philosophy-title">AI Should Solve Real Problems</h3>
+                        <p class="philosophy-text">I don't chase trends or buzzwords. Every AI system I build starts with a real problem and is measured by real outcomes. Technology is a tool, not a goal.</p>
+                    </div>
+                    
+                    <div class="philosophy-card animate-in" style="animation-delay: 0.2s;">
+                        <div class="philosophy-icon"><i data-lucide="minimize-2"></i></div>
+                        <h3 class="philosophy-title">Simplicity Creates Quality</h3>
+                        <p class="philosophy-text">The best systems are the simplest ones. I remove complexity wherever possible, creating solutions that are easy to understand, maintain, and scale.</p>
+                    </div>
+                    
+                    <div class="philosophy-card animate-in" style="animation-delay: 0.3s;">
+                        <div class="philosophy-icon"><i data-lucide="heart"></i></div>
+                        <h3 class="philosophy-title">Experience Over Everything</h3>
+                        <p class="philosophy-text">A beautiful interface means nothing if the experience is frustrating. I design for humans first — making every interaction intuitive, smooth, and delightful.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="contact-container">
+                <div class="contact-content animate-in">
+                    <div class="section-header">
+                        <span class="section-tag">Get In Touch</span>
+                        <h2 class="section-title">Let's Build Something <span class="text-gradient">Extraordinary</span></h2>
+                        <p class="section-description">Have a project in mind? I'm always open to discussing new opportunities, creative ideas, or potential collaborations.</p>
+                    </div>
+                    <div class="contact-grid">
+                        <div class="contact-info">
+                            <a href="mailto:contact@abstudio.ai" class="contact-link">
+                                <i data-lucide="mail"></i>
+                                <div>
+                                    <span>Email</span>
+                                    <span>contact@abstudio.ai</span>
+                                </div>
+                            </a>
+                            <a href="#" target="_blank" class="contact-link">
+                                <i data-lucide="github"></i>
+                                <div>
+                                    <span>GitHub</span>
+                                    <span>github.com/ab</span>
+                                </div>
+                            </a>
+                            <a href="#" target="_blank" class="contact-link">
+                                <i data-lucide="linkedin"></i>
+                                <div>
+                                    <span>LinkedIn</span>
+                                    <span>linkedin.com/in/ab</span>
+                                </div>
+                            </a>
+                            <a href="#" target="_blank" class="contact-link">
+                                <i data-lucide="facebook"></i>
+                                <div>
+                                    <span>Facebook</span>
+                                    <span>facebook.com/ab</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="contact-cta-box">
+                            <div class="cta-icon"><i data-lucide="rocket"></i></div>
+                            <h3>Ready to start?</h3>
+                            <p>Tell me about your project and let's explore how AI and automation can transform your business.</p>
+                            <a href="mailto:contact@abstudio.ai" class="btn btn-primary">
+                                <span>Send me a message</span>
+                                <i data-lucide="arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <a href="#" class="footer-logo">AB<span class="logo-dot">.</span></a>
+                <p class="footer-tagline">Building intelligent systems that actually work.</p>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 AB Studio. Crafted with precision.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#home">Back to top <i data-lucide="arrow-up"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
