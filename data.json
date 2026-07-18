@@ -207,6 +207,7 @@
     "github": "github.com/ab",
     "linkedin": "linkedin.com/in/ab",
     "facebook": "facebook.com/ab",
+    "google_sheet_url": "",
     "cta_box": {
       "icon": "rocket",
       "title": "Ready to start?",

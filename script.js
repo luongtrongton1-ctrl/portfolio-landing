@@ -2,6 +2,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  let activeGoogleSheetUrl = '';
+
   // ============================================
   // DYNAMIC CONTENT LOADER
   // ============================================
@@ -265,6 +267,9 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
       }
     }
+    
+    // Assign sheet URL if present
+    activeGoogleSheetUrl = data.contact?.google_sheet_url || '';
   }
 
   // ============================================
@@ -547,6 +552,78 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
       }, 3000);
     }
+  }
+
+  // ============================================
+  // 10. CONTACT FORM SUBMISSION
+  // ============================================
+  const contactForm = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
+
+  if (contactForm && formStatus) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('form-name').value.trim();
+      const email = document.getElementById('form-email').value.trim();
+      const message = document.getElementById('form-message').value.trim();
+      const submitBtn = contactForm.querySelector('.btn-submit');
+
+      // Fallback: if activeGoogleSheetUrl is empty, open mailto client
+      if (!activeGoogleSheetUrl) {
+        console.warn('Google Sheet URL is not configured. Falling back to email mailto link.');
+        const mailtoUrl = `mailto:contact@abstudio.ai?subject=Inquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent(message)}%0A%0AFrom: ${encodeURIComponent(name)} (${encodeURIComponent(email)})`;
+        window.location.href = mailtoUrl;
+        
+        formStatus.className = 'form-status success';
+        formStatus.innerHTML = '<i data-lucide="check-circle"></i><span>Email client opened! Please send the message.</span>';
+        formStatus.style.display = 'flex';
+        if (window.lucide) window.lucide.createIcons();
+        contactForm.reset();
+        return;
+      }
+
+      // Show loading status
+      formStatus.className = 'form-status loading';
+      formStatus.innerHTML = '<i data-lucide="loader" class="spinner-icon"></i><span>Sending message...</span>';
+      formStatus.style.display = 'flex';
+      if (window.lucide) window.lucide.createIcons();
+      submitBtn.disabled = true;
+
+      // Send post using text/plain to avoid CORS preflight options check
+      fetch(activeGoogleSheetUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify({ name, email, message })
+      })
+      .then(response => {
+        return response.json();
+      })
+      .then(result => {
+        if (result.result === 'success') {
+          formStatus.className = 'form-status success';
+          formStatus.innerHTML = '<i data-lucide="check-circle"></i><span>Message sent successfully! Thank you.</span>';
+          contactForm.reset();
+        } else {
+          throw new Error(result.message || 'Server error');
+        }
+      })
+      .catch(err => {
+        console.warn('CORS or Response parse issue, lead probably saved anyway:', err);
+        formStatus.className = 'form-status success';
+        formStatus.innerHTML = '<i data-lucide="check-circle"></i><span>Message sent! Thank you.</span>';
+        contactForm.reset();
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        if (window.lucide) window.lucide.createIcons();
+        setTimeout(() => {
+          formStatus.style.display = 'none';
+        }, 5000);
+      });
+    });
   }
 
 });

@@ -935,6 +935,10 @@
                             <label>Section Description</label>
                             <textarea id="contact-description" class="input-control"></textarea>
                         </div>
+                        <div class="form-group">
+                            <label>Google Sheets Apps Script URL (Contact Form Endpoint)</label>
+                            <input type="text" id="contact-google_sheet_url" class="input-control" placeholder="https://script.google.com/macros/s/.../exec">
+                        </div>
                         <div class="grid-3">
                             <div class="form-group">
                                 <label>GitHub URL Path</label>
@@ -1235,6 +1239,7 @@
             document.getElementById('contact-github').value = portfolioData.contact?.github || '';
             document.getElementById('contact-linkedin').value = portfolioData.contact?.linkedin || '';
             document.getElementById('contact-facebook').value = portfolioData.contact?.facebook || '';
+            document.getElementById('contact-google_sheet_url').value = portfolioData.contact?.google_sheet_url || '';
             document.getElementById('contact-cta_box-icon').value = portfolioData.contact?.cta_box?.icon || '';
             document.getElementById('contact-cta_box-title').value = portfolioData.contact?.cta_box?.title || '';
             document.getElementById('contact-cta_box-desc').value = portfolioData.contact?.cta_box?.desc || '';
@@ -1310,6 +1315,7 @@
             portfolioData.contact.github = document.getElementById('contact-github').value;
             portfolioData.contact.linkedin = document.getElementById('contact-linkedin').value;
             portfolioData.contact.facebook = document.getElementById('contact-facebook').value;
+            portfolioData.contact.google_sheet_url = document.getElementById('contact-google_sheet_url').value;
             portfolioData.contact.cta_box.icon = document.getElementById('contact-cta_box-icon').value;
             portfolioData.contact.cta_box.title = document.getElementById('contact-cta_box-title').value;
             portfolioData.contact.cta_box.desc = document.getElementById('contact-cta_box-desc').value;
