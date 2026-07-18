@@ -1,0 +1,226 @@
+{
+  "hero": {
+    "badge": "AI-Powered Solutions",
+    "title_part1": "Building Intelligent Systems",
+    "title_part2": "That Actually Work",
+    "description": "I design and build AI automation systems, intelligent agents, and workflow solutions that help businesses operate smarter, faster, and more efficiently.",
+    "cta_primary_text": "Start a Project",
+    "cta_primary_link": "#contact",
+    "cta_secondary_text": "View Work",
+    "cta_secondary_link": "#projects",
+    "terminal_title": "ab_studio.ai",
+    "terminal_code": "<div class=\"code-line\"><span class=\"keyword\">const</span> agent = <span class=\"keyword\">new</span> AIAgent({</div><div class=\"code-line indented\"><span class=\"property\">model</span>: <span class=\"string\">'gpt-4-turbo'</span>,</div><div class=\"code-line indented\"><span class=\"property\">task</span>: <span class=\"string\">'automate_workflow'</span>,</div><div class=\"code-line indented\"><span class=\"property\">accuracy</span>: <span class=\"number\">0.99</span></div><div class=\"code-line\">});</div><br><div class=\"code-comment\">// ✓ 2,847 tasks automated</div><div class=\"code-comment\">// ✓ 99.2% success rate<span class=\"cursor\"></span></div>"
+  },
+  "trust": {
+    "stats": [
+      { "number": "3+", "label": "Years Experience" },
+      { "number": "50+", "label": "Projects Delivered" },
+      { "number": "99%", "label": "Client Satisfaction" },
+      { "number": "2.8K+", "label": "Tasks Automated" }
+    ],
+    "logos_title": "Technologies I work with",
+    "logos": ["Python", "TensorFlow", "OpenAI", "LangChain", "React", "Node.js", "PostgreSQL", "Docker"]
+  },
+  "about": {
+    "tag": "About Me",
+    "title": "Turning Complex Problems Into Elegant Automations",
+    "lead": "I'm an AI Systems Engineer who believes that the best technology is the kind you don't notice — it simply works, quietly making everything better.",
+    "paragraphs": [
+      "With a deep passion for artificial intelligence and automation, I help businesses transform their manual, repetitive processes into intelligent, self-running systems.",
+      "I don't just build tools. I build solutions that understand context, learn from data, and deliver measurable results. Every system I create is designed to save time, reduce errors, and scale effortlessly."
+    ],
+    "values": [
+      { "icon": "target", "title": "Problem-First Thinking", "desc": "I start with your real challenges, not trendy technology." },
+      { "icon": "layers", "title": "Systems Design", "desc": "I build interconnected systems, not isolated scripts." },
+      { "icon": "trending-up", "title": "Measurable Impact", "desc": "Every solution is measured by real business outcomes." }
+    ],
+    "profile": {
+      "avatar": "AB",
+      "role": "AI Systems Engineer",
+      "location": "Vietnam 🇻🇳",
+      "stats": [
+        "Focus: AI & Automation",
+        "Approach: Systems Thinking",
+        "Goal: Measurable Impact"
+      ]
+    }
+  },
+  "services": {
+    "tag": "Services",
+    "title": "What I Can Build For You",
+    "description": "End-to-end AI solutions designed to transform how your business operates.",
+    "list": [
+      {
+        "icon": "bot",
+        "title": "AI Agents & Assistants",
+        "desc": "Custom AI agents that handle customer support, data analysis, content generation, and complex decision-making — operating 24/7 with human-level accuracy.",
+        "outcome": "Reduce manual work by up to 80%",
+        "large": true
+      },
+      {
+        "icon": "workflow",
+        "title": "Workflow Automation",
+        "desc": "Transform manual processes into automated pipelines that run reliably and scale effortlessly.",
+        "outcome": "Save 20+ hours per week",
+        "large": false
+      },
+      {
+        "icon": "database",
+        "title": "Data Crawling & ETL",
+        "desc": "Intelligent data collection, processing, and analysis systems built for accuracy and scale.",
+        "outcome": "Process millions of records",
+        "large": false
+      },
+      {
+        "icon": "code",
+        "title": "Internal Tools",
+        "desc": "Custom dashboards, admin panels, and internal applications that streamline your team's daily work.",
+        "outcome": "Boost team productivity 3x",
+        "large": false
+      },
+      {
+        "icon": "briefcase",
+        "title": "Business Automation",
+        "desc": "Complete end-to-end automation strategies that connect your tools, data, and workflows into one intelligent system — from CRM to reporting to operations.",
+        "outcome": "Eliminate 90% of repetitive tasks",
+        "large": true
+      },
+      {
+        "icon": "brain",
+        "title": "AI Consulting",
+        "desc": "Strategic guidance on AI adoption, tool selection, and implementation roadmaps.",
+        "outcome": "Clear AI strategy in 2 weeks",
+        "large": false
+      }
+    ]
+  },
+  "projects": {
+    "tag": "Featured Work",
+    "title": "Projects That Deliver Results",
+    "description": "Real solutions built for real businesses. Every project is measured by outcomes.",
+    "list": [
+      {
+        "icon": "bot",
+        "tag": "AI Agent",
+        "title": "Customer Support AI Agent",
+        "desc": "An intelligent support agent that handles 85% of customer inquiries automatically, reducing response time from hours to seconds while maintaining a 96% satisfaction rate.",
+        "tech": ["Python", "LangChain", "OpenAI", "FastAPI"],
+        "metrics": [
+          { "value": "85%", "label": "Auto-resolved" },
+          { "value": "< 3s", "label": "Response Time" },
+          { "value": "96%", "label": "Satisfaction" }
+        ],
+        "link": "#contact"
+      },
+      {
+        "icon": "workflow",
+        "tag": "Automation",
+        "title": "E-commerce Automation Pipeline",
+        "desc": "A complete automation system handling inventory management, order processing, price optimization, and reporting — processing 10,000+ orders daily with zero manual intervention.",
+        "tech": ["Python", "n8n", "PostgreSQL", "Docker"],
+        "metrics": [
+          { "value": "10K+", "label": "Daily Orders" },
+          { "value": "0", "label": "Manual Steps" },
+          { "value": "40hrs", "label": "Saved/Week" }
+        ],
+        "link": "#contact"
+      },
+      {
+        "icon": "database",
+        "tag": "Data Engineering",
+        "title": "Real-time Market Intelligence Platform",
+        "desc": "A data crawling and analysis platform that monitors competitor pricing, market trends, and customer sentiment across 500+ sources in real-time.",
+        "tech": ["Python", "Scrapy", "Apache Kafka", "React"],
+        "metrics": [
+          { "value": "500+", "label": "Data Sources" },
+          { "value": "Real-time", "label": "Updates" },
+          { "value": "2M+", "label": "Records/Day" }
+        ],
+        "link": "#contact"
+      }
+    ]
+  },
+  "workflow": {
+    "tag": "My Process",
+    "title": "From Idea to Production",
+    "description": "A proven methodology that ensures every project delivers maximum value.",
+    "steps": [
+      { "title": "Discovery & Research", "desc": "Deep dive into your business, processes, and pain points. I identify the highest-impact opportunities for automation and AI." },
+      { "title": "Strategy & Architecture", "desc": "Design the system architecture, define data flows, select technologies, and create a clear implementation roadmap." },
+      { "title": "Rapid Prototyping", "desc": "Build a working prototype quickly to validate the approach, gather feedback, and iterate before full development." },
+      { "title": "Development & Automation", "desc": "Build the complete system with clean, maintainable code. Integrate AI models, set up automation pipelines, and connect all moving parts." },
+      { "title": "Testing & Deployment", "desc": "Rigorous testing, performance optimization, and smooth deployment to production with monitoring and alerting." },
+      { "title": "Optimization & Scale", "desc": "Continuous monitoring, performance tuning, and scaling the system as your business grows. I ensure long-term success." }
+    ]
+  },
+  "tech_stack": {
+    "tag": "Tech Stack",
+    "title": "Tools I Master",
+    "categories": [
+      {
+        "icon": "brain",
+        "name": "Artificial Intelligence",
+        "items": ["OpenAI GPT", "LangChain", "TensorFlow", "Hugging Face", "Pinecone"]
+      },
+      {
+        "icon": "workflow",
+        "name": "Automation",
+        "items": ["n8n", "Make (Integromat)", "Zapier", "Selenium", "Puppeteer"]
+      },
+      {
+        "icon": "server",
+        "name": "Backend",
+        "items": ["Python", "FastAPI", "Node.js", "Django", "Express"]
+      },
+      {
+        "icon": "layout",
+        "name": "Frontend",
+        "items": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vue.js"]
+      },
+      {
+        "icon": "cloud",
+        "name": "Infrastructure",
+        "items": ["Docker", "AWS", "Google Cloud", "Vercel", "GitHub Actions"]
+      },
+      {
+        "icon": "database",
+        "name": "Database",
+        "items": ["PostgreSQL", "MongoDB", "Redis", "Supabase", "Firebase"]
+      }
+    ]
+  },
+  "philosophy": {
+    "tag": "Philosophy",
+    "title": "What I Believe In",
+    "list": [
+      { "icon": "zap", "title": "Automation Is Freedom", "desc": "Every hour spent on repetitive tasks is an hour stolen from creative work. I build systems that give people their time back — so they can focus on what truly matters." },
+      { "icon": "compass", "title": "AI Should Solve Real Problems", "desc": "I don't chase trends or buzzwords. Every AI system I build starts with a real problem and is measured by real outcomes. Technology is a tool, not a goal." },
+      { "icon": "minimize-2", "title": "Simplicity Creates Quality", "desc": "The best systems are the simplest ones. I remove complexity wherever possible, creating solutions that are easy to understand, maintain, and scale." },
+      { "icon": "heart", "title": "Experience Over Everything", "desc": "A beautiful interface means nothing if the experience is frustrating. I design for humans first — making every interaction intuitive, smooth, and delightful." }
+    ]
+  },
+  "contact": {
+    "tag": "Get In Touch",
+    "title": "Let's Build Something Extraordinary",
+    "description": "Have a project in mind? I'm always open to discussing new opportunities, creative ideas, or potential collaborations.",
+    "email": "contact@abstudio.ai",
+    "github": "github.com/ab",
+    "linkedin": "linkedin.com/in/ab",
+    "facebook": "facebook.com/ab",
+    "cta_box": {
+      "icon": "rocket",
+      "title": "Ready to start?",
+      "desc": "Tell me about your project and let's explore how AI and automation can transform your business.",
+      "btn_text": "Send me a message"
+    }
+  },
+  "footer": {
+    "logo": "AB",
+    "tagline": "Building intelligent systems that actually work.",
+    "copyright": "© 2026 AB Studio. Crafted with precision.",
+    "links": [
+      { "text": "Privacy", "url": "#" },
+      { "text": "Terms", "url": "#" }
+    ]
+  }
+}

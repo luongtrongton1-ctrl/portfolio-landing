@@ -3,30 +3,344 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ============================================
-  // 1. SCROLL-TRIGGERED ANIMATIONS
+  // DYNAMIC CONTENT LOADER
   // ============================================
-  const animateObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        // Add stagger delay based on sibling index
-        const parent = entry.target.parentElement;
-        if (parent) {
-          const siblings = parent.querySelectorAll(':scope > .animate-in');
-          const siblingIndex = Array.from(siblings).indexOf(entry.target);
-          if (siblingIndex > 0) {
-            entry.target.style.transitionDelay = `${siblingIndex * 100}ms`;
-          }
-        }
-        entry.target.classList.add('visible');
-        animateObserver.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  });
+  function populateDynamicContent(data) {
+    if (!data) return;
 
-  document.querySelectorAll('.animate-in').forEach(el => animateObserver.observe(el));
+    const setText = (selector, text) => {
+      const el = document.querySelector(selector);
+      if (el) el.textContent = text || '';
+    };
+
+    const setHTML = (selector, html) => {
+      const el = document.querySelector(selector);
+      if (el) el.innerHTML = html || '';
+    };
+
+    setText('.hero-badge span', data.hero?.badge);
+    setHTML('.hero-title', `${data.hero?.title_part1 || ''}<br>That <span class="text-gradient">${data.hero?.title_part2 || ''}</span>`);
+    setText('.hero-description', data.hero?.description);
+    setText('.hero-actions .btn-primary span', data.hero?.cta_primary_text);
+    setText('.hero-actions .btn-secondary span', data.hero?.cta_secondary_text);
+    setText('.hero-card .card-title', data.hero?.terminal_title);
+    setHTML('.hero-card .card-body code', data.hero?.terminal_code);
+
+    if (data.trust?.stats) {
+      const statsContainer = document.querySelector('.trust-stats');
+      if (statsContainer) {
+        statsContainer.innerHTML = data.trust.stats.map((stat, idx) => `
+          <div class="stat-item animate-in" style="animation-delay: ${idx * 0.1}s;">
+            <span class="stat-number">${stat.number}</span>
+            <span class="stat-label">${stat.label}</span>
+          </div>
+        `).join('');
+      }
+    }
+    setText('.trust-logos p', data.trust?.logos_title);
+    if (data.trust?.logos) {
+      const logosContainer = document.querySelector('.logos-track');
+      if (logosContainer) {
+        logosContainer.innerHTML = data.trust.logos.map(logo => `
+          <span class="logo-item">${logo}</span>
+        `).join('');
+      }
+    }
+
+    setText('#about .section-tag', data.about?.tag);
+    setHTML('#about .section-title', data.about?.title ? data.about.title.replace(/(Elegant Automations|Problems|Complex Problems)/g, '<span class="text-gradient">$1</span>') : '');
+    setText('.about-lead', data.about?.lead);
+    
+    const paragraphsContainer = document.querySelector('.about-content');
+    if (paragraphsContainer && data.about?.paragraphs) {
+      const existingPs = paragraphsContainer.querySelectorAll('p:not(.about-lead)');
+      existingPs.forEach(p => p.remove());
+      
+      const valuesDiv = paragraphsContainer.querySelector('.about-values');
+      data.about.paragraphs.forEach(text => {
+        const p = document.createElement('p');
+        p.textContent = text;
+        if (valuesDiv) {
+          paragraphsContainer.insertBefore(p, valuesDiv);
+        } else {
+          paragraphsContainer.appendChild(p);
+        }
+      });
+    }
+
+    if (data.about?.values) {
+      const valuesContainer = document.querySelector('.about-values');
+      if (valuesContainer) {
+        valuesContainer.innerHTML = data.about.values.map(val => `
+          <div class="value-item">
+            <i data-lucide="${val.icon}"></i>
+            <div>
+              <h4>${val.title}</h4>
+              <p>${val.desc}</p>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    setText('.profile-avatar', data.about?.profile?.avatar);
+    setText('.profile-card h3', data.about?.profile?.role);
+    setText('.profile-card > p', data.about?.profile?.location);
+    if (data.about?.profile?.stats) {
+      const profileStatsContainer = document.querySelector('.profile-stats');
+      if (profileStatsContainer) {
+        profileStatsContainer.innerHTML = data.about.profile.stats.map(stat => `
+          <span>${stat}</span>
+        `).join('');
+      }
+    }
+
+    setText('#services .section-tag', data.services?.tag);
+    setHTML('#services .section-title', data.services?.title ? data.services.title.replace(/(Build For You)/g, '<span class="text-gradient">$1</span>') : '');
+    setText('#services .section-description', data.services?.description);
+    if (data.services?.list) {
+      const servicesContainer = document.querySelector('.services-grid');
+      if (servicesContainer) {
+        servicesContainer.innerHTML = data.services.list.map((srv, idx) => `
+          <div class="service-card ${srv.large ? 'card-large' : ''} animate-in" style="animation-delay: ${idx * 0.1}s;">
+            <div class="service-icon"><i data-lucide="${srv.icon}"></i></div>
+            <h3 class="service-title">${srv.title}</h3>
+            <p class="service-description">${srv.desc}</p>
+            <div class="service-outcome">
+              <i data-lucide="check-circle"></i>
+              <span>${srv.outcome}</span>
+            </div>
+            <a href="${srv.link || '#'}" class="service-cta">Learn more <i data-lucide="arrow-right"></i></a>
+          </div>
+        `).join('');
+      }
+    }
+
+    setText('#projects .section-tag', data.projects?.tag);
+    setHTML('#projects .section-title', data.projects?.title ? data.projects.title.replace(/(Deliver Results)/g, '<span class="text-gradient">$1</span>') : '');
+    setText('#projects .section-description', data.projects?.description);
+    if (data.projects?.list) {
+      const projectsContainer = document.querySelector('.projects-grid');
+      if (projectsContainer) {
+        projectsContainer.innerHTML = data.projects.list.map((proj, idx) => `
+          <div class="project-card animate-in" style="animation-delay: ${idx * 0.1}s;">
+            <div class="project-image">
+              <i data-lucide="${proj.icon}"></i>
+            </div>
+            <div class="project-content">
+              <span class="project-tag">${proj.tag}</span>
+              <h3 class="project-title">${proj.title}</h3>
+              <p class="project-description">${proj.desc}</p>
+              <div class="project-tech">
+                ${proj.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+              </div>
+              <div class="project-metrics">
+                ${proj.metrics.map(m => `
+                  <div class="metric">
+                    <span class="metric-value">${m.value}</span>
+                    <span class="metric-label">${m.label}</span>
+                  </div>
+                `).join('')}
+              </div>
+              <a href="${proj.link || '#'}" class="project-cta">View Case Study <i data-lucide="arrow-right"></i></a>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    setText('#workflow .section-tag', data.workflow?.tag);
+    setHTML('#workflow .section-title', data.workflow?.title ? data.workflow.title.replace(/(Production)/g, '<span class="text-gradient">${1}</span>') : '');
+    setText('#workflow .section-description', data.workflow?.description);
+    if (data.workflow?.steps) {
+      const workflowContainer = document.querySelector('.workflow-timeline');
+      if (workflowContainer) {
+        workflowContainer.innerHTML = data.workflow.steps.map((step, idx) => {
+          const stepNum = String(idx + 1).padStart(2, '0');
+          return `
+            <div class="workflow-step animate-in">
+              <div class="step-marker">
+                <span class="step-number">${stepNum}</span>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <h3 class="step-title">${step.title}</h3>
+                <p class="step-description">${step.desc}</p>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    setText('#tech .section-tag', data.tech_stack?.tag);
+    setHTML('#tech .section-title', data.tech_stack?.title ? data.tech_stack.title.replace(/(Master)/g, '<span class="text-gradient">$1</span>') : '');
+    if (data.tech_stack?.categories) {
+      const categoriesContainer = document.querySelector('.tech-categories');
+      if (categoriesContainer) {
+        categoriesContainer.innerHTML = data.tech_stack.categories.map((cat, idx) => `
+          <div class="tech-category animate-in" style="animation-delay: ${idx * 0.1}s;">
+            <h3 class="category-title"><i data-lucide="${cat.icon}"></i> ${cat.name}</h3>
+            <div class="tech-items">
+              ${cat.items.map(item => `
+                <div class="tech-item"><span class="tech-name">${item}</span></div>
+              `).join('')}
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    setText('#philosophy .section-tag', data.philosophy?.tag);
+    setHTML('#philosophy .section-title', data.philosophy?.title ? data.philosophy.title.replace(/(Believe In)/g, '<span class="text-gradient">$1</span>') : '');
+    if (data.philosophy?.list) {
+      const philosophyContainer = document.querySelector('.philosophy-grid');
+      if (philosophyContainer) {
+        philosophyContainer.innerHTML = data.philosophy.list.map(phil => `
+          <div class="philosophy-card animate-in">
+            <div class="philosophy-icon"><i data-lucide="${phil.icon}"></i></div>
+            <h3 class="philosophy-title">${phil.title}</h3>
+            <p class="philosophy-text">${phil.desc}</p>
+          </div>
+        `).join('');
+      }
+    }
+
+    setText('#contact .section-tag', data.contact?.tag);
+    setHTML('#contact .section-title', data.contact?.title ? data.contact.title.replace(/(Extraordinary)/g, '<span class="text-gradient">$1</span>') : '');
+    setText('#contact .section-description', data.contact?.description);
+    
+    const contactInfoContainer = document.querySelector('.contact-info');
+    if (contactInfoContainer) {
+      contactInfoContainer.innerHTML = `
+        <a href="mailto:${data.contact?.email}" class="contact-link">
+          <i data-lucide="mail"></i>
+          <div>
+            <span>Email</span>
+            <span>${data.contact?.email}</span>
+          </div>
+        </a>
+        <a href="https://${data.contact?.github}" target="_blank" class="contact-link">
+          <i data-lucide="github"></i>
+          <div>
+            <span>GitHub</span>
+            <span>${data.contact?.github}</span>
+          </div>
+        </a>
+        <a href="https://${data.contact?.linkedin}" target="_blank" class="contact-link">
+          <i data-lucide="linkedin"></i>
+          <div>
+            <span>LinkedIn</span>
+            <span>${data.contact?.linkedin}</span>
+          </div>
+        </a>
+        <a href="https://${data.contact?.facebook}" target="_blank" class="contact-link">
+          <i data-lucide="facebook"></i>
+          <div>
+            <span>Facebook</span>
+            <span>${data.contact?.facebook}</span>
+          </div>
+        </a>
+      `;
+    }
+
+    setText('.contact-cta-box h3', data.contact?.cta_box?.title);
+    setText('.contact-cta-box p', data.contact?.cta_box?.desc);
+    setText('.contact-cta-box .btn-primary span', data.contact?.cta_box?.btn_text);
+    const contactCtaBtn = document.querySelector('.contact-cta-box .btn-primary');
+    if (contactCtaBtn) {
+      contactCtaBtn.setAttribute('href', `mailto:${data.contact?.cta_box?.email || data.contact?.email}`);
+    }
+
+    setText('.footer-logo', data.footer?.logo);
+    setText('.footer-tagline', data.footer?.tagline);
+    setText('.footer-copyright', data.footer?.copyright);
+    if (data.footer?.links) {
+      const footerLinksContainer = document.querySelector('.footer-links');
+      if (footerLinksContainer) {
+        footerLinksContainer.innerHTML = data.footer.links.map(l => `
+          <a href="${l.url}">${l.text}</a>
+        `).join('') + `
+          <a href="#home">Back to top <i data-lucide="arrow-up"></i></a>
+        `;
+      }
+    }
+  }
+
+  // ============================================
+  // LOAD DATA & INITIALIZE
+  // ============================================
+  function initializePage() {
+    // 1. SCROLL-TRIGGERED ANIMATIONS
+    const animateObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const parent = entry.target.parentElement;
+          if (parent) {
+            const siblings = parent.querySelectorAll(':scope > .animate-in');
+            const siblingIndex = Array.from(siblings).indexOf(entry.target);
+            if (siblingIndex > 0) {
+              entry.target.style.transitionDelay = `${siblingIndex * 100}ms`;
+            }
+          }
+          entry.target.classList.add('visible');
+          animateObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    document.querySelectorAll('.animate-in').forEach(el => animateObserver.observe(el));
+
+    // 6. COUNTER ANIMATION
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-number').forEach(el => counterObserver.observe(el));
+  }
+
+  // Load from local storage draft or fetch data.json
+  const draftData = localStorage.getItem('draft_portfolio_data');
+  if (draftData) {
+    try {
+      const parsed = JSON.parse(draftData);
+      populateDynamicContent(parsed);
+      if (window.lucide) window.lucide.createIcons();
+      initializePage();
+    } catch (e) {
+      console.error('Error loading draft data', e);
+      loadServerData();
+    }
+  } else {
+    loadServerData();
+  }
+
+  function loadServerData() {
+    fetch('data.json')
+      .then(response => {
+        if (!response.ok) throw new Error('Network error');
+        return response.json();
+      })
+      .then(data => {
+        populateDynamicContent(data);
+        if (window.lucide) window.lucide.createIcons();
+        initializePage();
+      })
+      .catch(err => {
+        console.warn('Could not load data.json, falling back to pre-rendered HTML.', err);
+        if (window.lucide) window.lucide.createIcons();
+        initializePage();
+      });
+  }
+
 
   // ============================================
   // 2. NAVBAR SCROLL BEHAVIOR

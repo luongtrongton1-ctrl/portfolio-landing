@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — AB Studio</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚙️</text></svg>">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Lucide CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg: #F8FBF8;
+            --surface: #FFFFFF;
+            --primary: #1E5B43;
+            --primary-light: #245e47;
+            --secondary: #3C8D68;
+            --accent: #7AC29A;
+            --highlight: #DDF3E5;
+            --heading: #1C1C1C;
+            --body: #555555;
+            --muted: #999999;
+            --border: rgba(0,0,0,0.08);
+            --border-hover: rgba(0,0,0,0.15);
+            --success: #2F855A;
+            --error: #D14343;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
+            --font-primary: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg);
+            color: var(--heading);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* LOGIN SCREEN */
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .login-bg-effects {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.25;
+            width: 400px;
+            height: 400px;
+        }
+        .orb-1 {
+            background: radial-gradient(circle, rgba(122,194,154,0.4), transparent);
+            top: -100px;
+            right: -50px;
+        }
+        .orb-2 {
+            background: radial-gradient(circle, rgba(60,141,104,0.3), transparent);
+            bottom: -100px;
+            left: -50px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: var(--shadow-lg);
+            z-index: 1;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .login-logo {
+            font-weight: 800;
+            font-size: 28px;
+            color: var(--heading);
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .login-logo span {
+            color: var(--primary);
+        }
+
+        .login-subtitle {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--body);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-control {
+            width: 100%;
+            padding: 12px 16px;
+            font-family: inherit;
+            font-size: 15px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--heading);
+            transition: all 0.2s ease;
+        }
+
+        .input-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 91, 67, 0.1);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius-full);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--heading);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--border-hover);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .error-message {
+            background: rgba(209, 67, 67, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(209, 67, 67, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .shake {
+            animation: shakeAnimation 0.4s ease;
+        }
+
+        @keyframes shakeAnimation {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        /* ADMIN DASHBOARD WORKSPACE */
+        .admin-layout {
+            display: none;
+            flex: 1;
+            height: 100vh;
+            grid-template-columns: 260px 1fr;
+            overflow: hidden;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar-logo {
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--heading);
+            letter-spacing: -0.02em;
+        }
+
+        .sidebar-logo span {
+            color: var(--primary);
+        }
+
+        .nav-tabs {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-tab {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border: none;
+            background: transparent;
+            color: var(--body);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .nav-tab:hover {
+            background: rgba(0, 0, 0, 0.02);
+            color: var(--heading);
+        }
+
+        .nav-tab.active {
+            background: var(--highlight);
+            color: var(--primary);
+        }
+
+        .sidebar-footer {
+            padding: 16px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* MAIN CONTENT AREA */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg);
+        }
+
+        .content-header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .tab-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--heading);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .workspace-panel {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px;
+        }
+
+        .panel-tab-content {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .panel-tab-content.active {
+            display: block;
+        }
+
+        .editor-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 24px;
+        }
+
+        .card-sec-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--heading);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+        }
+
+        .card-sec-title svg {
+            color: var(--primary);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        textarea.input-control {
+            resize: vertical;
+            min-height: 100px;
+            line-height: 1.6;
+        }
+
+        textarea.code-editor {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            min-height: 180px;
+        }
+
+        /* REUSABLE LIST EDITOR */
+        .list-items-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .list-item-box {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            position: relative;
+            background: var(--bg);
+        }
+
+        .list-item-delete {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: none;
+            color: var(--error);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .list-item-delete:hover {
+            background: rgba(209, 67, 67, 0.1);
+        }
+
+        .list-item-add {
+            margin-top: 16px;
+            width: 100%;
+            border: 1px dashed var(--secondary);
+            background: rgba(60, 141, 104, 0.03);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .list-item-add:hover {
+            background: rgba(60, 141, 104, 0.08);
+        }
+
+        /* GITHUB KEY CONFIG MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            z-index: 1000;
+        }
+
+        .modal-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: var(--shadow-lg);
+            text-align: left;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-title svg {
+            color: var(--primary);
+        }
+
+        .modal-desc {
+            font-size: 14px;
+            color: var(--body);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        /* SAVING PROGRESS OVERLAY */
+        .progress-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(30, 91, 67, 0.85);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            color: white;
+            text-align: center;
+        }
+
+        .spinner {
+            width: 56px;
+            height: 56px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 24px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .progress-step {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .progress-detail {
+            font-size: 14px;
+            opacity: 0.8;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        /* JSON CODE PREVIEW */
+        .json-preview {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 24px;
+            border-radius: 8px;
+            overflow-x: auto;
+            max-height: 500px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. LOGIN SCREEN -->
+    <div class="login-container" id="loginScreen">
+        <div class="login-bg-effects">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+        </div>
+        <div class="login-card" id="loginCard">
+            <h1 class="login-logo">AB Studio<span>.</span></h1>
+            <p class="login-subtitle">Content Management System</p>
+            
+            <div class="error-message" id="loginError">
+                <i data-lucide="alert-circle" style="width: 18px; height: 18px;"></i>
+                <span id="errorText">Incorrect username or password.</span>
+            </div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="input-control" required placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="input-control" required placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" style="margin-top: 12px;">
+                    <span>Sign In</span>
+                    <i data-lucide="log-in" style="width: 18px; height: 18px;"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. ADMIN DASHBOARD WORKSPACE -->
+    <div class="admin-layout" id="adminLayout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-logo">AB Studio<span>.</span></h2>
+            </div>
+            
+            <nav class="nav-tabs" id="navTabs">
+                <button class="nav-tab active" onclick="switchTab('hero')">
+                    <i data-lucide="sparkles" style="width: 18px;"></i> Hero Section
+                </button>
+                <button class="nav-tab" onclick="switchTab('trust')">
+                    <i data-lucide="shield-check" style="width: 18px;"></i> Trust & Stats
+                </button>
+                <button class="nav-tab" onclick="switchTab('about')">
+                    <i data-lucide="user" style="width: 18px;"></i> About Me
+                </button>
+                <button class="nav-tab" onclick="switchTab('services')">
+                    <i data-lucide="bot" style="width: 18px;"></i> Services
+                </button>
+                <button class="nav-tab" onclick="switchTab('projects')">
+                    <i data-lucide="folder" style="width: 18px;"></i> Featured Work
+                </button>
+                <button class="nav-tab" onclick="switchTab('workflow')">
+                    <i data-lucide="git-commit" style="width: 18px;"></i> Process Timeline
+                </button>
+                <button class="nav-tab" onclick="switchTab('tech_stack')">
+                    <i data-lucide="code" style="width: 18px;"></i> Tech Stack
+                </button>
+                <button class="nav-tab" onclick="switchTab('philosophy')">
+                    <i data-lucide="compass" style="width: 18px;"></i> Philosophy
+                </button>
+                <button class="nav-tab" onclick="switchTab('contact')">
+                    <i data-lucide="mail" style="width: 18px;"></i> Contact & Footer
+                </button>
+                <button class="nav-tab" onclick="switchTab('raw_json')">
+                    <i data-lucide="file-json" style="width: 18px;"></i> Raw data.json
+                </button>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="btn btn-secondary btn-block" onclick="configureGithub()">
+                    <i data-lucide="github" style="width: 18px;"></i> GitHub Key
+                </button>
+                <button class="btn btn-secondary btn-block" style="color: var(--error);" onclick="handleLogout()">
+                    <i data-lucide="log-out" style="width: 18px;"></i> Log Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1 class="tab-title" id="tabTitle">Hero Section</h1>
+                <div class="header-actions">
+                    <a href="/" target="_blank" class="btn btn-secondary">
+                        <i data-lucide="external-link" style="width: 18px;"></i> View Site
+                    </a>
+                    <button class="btn btn-secondary" onclick="saveDraft()">
+                        <i data-lucide="eye" style="width: 18px;"></i> Save Draft
+                    </button>
+                    <button class="btn btn-primary" onclick="publishToGithub()">
+                        <i data-lucide="send" style="width: 18px;"></i> Publish Live
+                    </button>
+                </div>
+            </header>
+
+            <div class="workspace-panel">
+                
+                <!-- HERO TAB -->
+                <div class="panel-tab-content active" id="tab-hero">
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="sparkles"></i> Hero Content</h3>
+                        <div class="form-group">
+                            <label>Badge Text</label>
+                            <input type="text" id="hero-badge" class="input-control">
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Title Part 1 (Regular)</label>
+                                <input type="text" id="hero-title_part1" class="input-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Title Part 2 (Gradient highlighted)</label>
+                                <input type="text" id="hero-title_part2" class="input-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Description Paragraph</label>
+                            <textarea id="hero-description" class="input-control"></textarea>
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Primary CTA Text</label>
+                                <input type="text" id="hero-cta_primary_text" class="input-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Primary CTA Link</label>
+                                <input type="text" id="hero-cta_primary_link" class="input-control">
+                            </div>
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Secondary CTA Text</label>
+                                <input type="text" id="hero-cta_secondary_text" class="input-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Secondary CTA Link</label>
+                                <input type="text" id="hero-cta_secondary_link" class="input-control">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="terminal"></i> Terminal Card Mockup</h3>
+                        <div class="form-group">
+                            <label>Card Tab Title</label>
+                            <input type="text" id="hero-terminal_title" class="input-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Mockup Code / Text (HTML support)</label>
+                            <textarea id="hero-terminal_code" class="input-control code-editor"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRUST TAB -->
+                <div class="panel-tab-content" id="tab-trust">
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="bar-chart-3"></i> Counter Statistics</h3>
+                        <div class="list-items-container" id="trust-stats-container"></div>
+                        <button class="btn btn-secondary list-item-add" onclick="addTrustStat()">+ Add Statistic</button>
+                    </div>
+                    
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="grid"></i> Technologies Row</h3>
+                        <div class="form-group">
+                            <label>Logos Header Title</label>
+                            <input type="text" id="trust-logos_title" class="input-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Technologies List (Comma-separated)</label>
+                            <input type="text" id="trust-logos" class="input-control" placeholder="Python, OpenAI, React...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ABOUT TAB -->
+                <div class="panel-tab-content" id="tab-about">
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="user"></i> About Content</h3>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Section Tag</label>
+                                <input type="text" id="about-tag" class="input-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Section Title</label>
+                                <input type="text" id="about-title" class="input-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Lead Paragraph</label>
+                            <textarea id="about-lead" class="input-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Additional Paragraphs (One paragraph per line)</label>
+                            <textarea id="about-paragraphs" class="input-control" style="min-height: 120px;"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="heart"></i> Core Values</h3>
+                        <div class="list-items-container" id="about-values-container"></div>
+                    </div>
+
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="postcard"></i> Profile Glass Card</h3>
+                        <div class="grid-3">
+                            <div class="form-group">
+                                <label>Avatar Initials</label>
+                                <input type="text" id="about-profile-avatar" class="input-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Role / Subtitle</label>
+                                <input type="text" id="about-profile-role" class="input-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Location</label>
+                                <input type="text" id="about-profile-location" class="input-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Bullet Points (Comma-separated)</label>
+                            <input type="text" id="about-profile-stats" class="input-control">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SERVICES TAB -->
+                <div class="panel-tab-content" id="tab-services">
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="heading"></i> Services Page Header</h3>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Section Tag</label>
+                                <input type="text" id="services-tag" class="input-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Section Title</label>
+                                <input type="text" id="services-title" class="input-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Section Description</label>
+                            <textarea id="services-description" class="input-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="bot"></i> Service Offerings</h3>
+                        <div class="list-items-container" id="services-list-container"></div>
+                        <button class="btn btn-secondary list-item-add" onclick="addService()">+ Add Service Card</button>
+                    </div>
+                </div>
+
+                <!-- PROJECTS TAB -->
+                <div class="panel-tab-content" id="tab-projects">
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="heading"></i> Projects Header</h3>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Section Tag</label>
+                                <input type="text" id="projects-tag" class="input-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Section Title</label>
+                                <input type="text" id="projects-title" class="input-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Section Description</label>
+                            <textarea id="projects-description" class="input-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="folder"></i> Featured Projects</h3>
+                        <div class="list-items-container" id="projects-list-container"></div>
+                        <button class="btn btn-secondary list-item-add" onclick="addProject()">+ Add Project Card</button>
+                    </div>
+                </div>
+
+                <!-- WORKFLOW TIMELINE TAB -->
+                <div class="panel-tab-content" id="tab-workflow">
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="heading"></i> Process Header</h3>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Section Tag</label>
+                                <input type="text" id="workflow-tag" class="input-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Section Title</label>
+                                <input type="text" id="workflow-title" class="input-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Section Description</label>
+                            <textarea id="workflow-description" class="input-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="git-commit"></i> Workflow Timeline Steps</h3>
+                        <div class="list-items-container" id="workflow-steps-container"></div>
+                        <button class="btn btn-secondary list-item-add" onclick="addWorkflowStep()">+ Add Timeline Step</button>
+                    </div>
+                </div>
+
+                <!-- TECH STACK TAB -->
+                <div class="panel-tab-content" id="tab-tech_stack">
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="heading"></i> Tech Stack Header</h3>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Section Tag</label>
+                                <input type="text" id="tech_stack-tag" class="input-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Section Title</label>
+                                <input type="text" id="tech_stack-title" class="input-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="code"></i> Skills Categories</h3>
+                        <div class="list-items-container" id="tech_stack-categories-container"></div>
+                        <button class="btn btn-secondary list-item-add" onclick="addTechCategory()">+ Add Tech Category</button>
+                    </div>
+                </div>
+
+                <!-- PHILOSOPHY TAB -->
+                <div class="panel-tab-content" id="tab-philosophy">
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="heading"></i> Philosophy Header</h3>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Section Tag</label>
+                                <input type="text" id="philosophy-tag" class="input-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Section Title</label>
+                                <input type="text" id="philosophy-title" class="input-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="compass"></i> Core Philosophy Cards</h3>
+                        <div class="list-items-container" id="philosophy-list-container"></div>
+                    </div>
+                </div>
+
+                <!-- CONTACT & FOOTER TAB -->
+                <div class="panel-tab-content" id="tab-contact">
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="mail"></i> Contact Header & Socials</h3>
+                        <div class="grid-3">
+                            <div class="form-group">
+                                <label>Section Tag</label>
+                                <input type="text" id="contact-tag" class="input-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Section Title</label>
+                                <input type="text" id="contact-title" class="input-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Primary Email</label>
+                                <input type="text" id="contact-email" class="input-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Section Description</label>
+                            <textarea id="contact-description" class="input-control"></textarea>
+                        </div>
+                        <div class="grid-3">
+                            <div class="form-group">
+                                <label>GitHub URL Path</label>
+                                <input type="text" id="contact-github" class="input-control" placeholder="github.com/ab">
+                            </div>
+                            <div class="form-group">
+                                <label>LinkedIn URL Path</label>
+                                <input type="text" id="contact-linkedin" class="input-control" placeholder="linkedin.com/in/ab">
+                            </div>
+                            <div class="form-group">
+                                <label>Facebook URL Path</label>
+                                <input type="text" id="contact-facebook" class="input-control" placeholder="facebook.com/ab">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="rocket"></i> Call To Action Box</h3>
+                        <div class="grid-3">
+                            <div class="form-group">
+                                <label>Box Icon Name</label>
+                                <input type="text" id="contact-cta_box-icon" class="input-control" placeholder="rocket">
+                            </div>
+                            <div class="form-group">
+                                <label>Box Title</label>
+                                <input type="text" id="contact-cta_box-title" class="input-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Button Text</label>
+                                <input type="text" id="contact-cta_box-btn_text" class="input-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Box Description</label>
+                            <textarea id="contact-cta_box-desc" class="input-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="layout"></i> Footer</h3>
+                        <div class="grid-3">
+                            <div class="form-group">
+                                <label>Footer Logo Text</label>
+                                <input type="text" id="footer-logo" class="input-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Tagline</label>
+                                <input type="text" id="footer-tagline" class="input-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Copyright Text</label>
+                                <input type="text" id="footer-copyright" class="input-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RAW DATA.JSON TAB -->
+                <div class="panel-tab-content" id="tab-raw_json">
+                    <div class="editor-card">
+                        <h3 class="card-sec-title"><i data-lucide="file-json"></i> Raw JSON Editor</h3>
+                        <p style="font-size:14px; color:var(--body); margin-bottom:16px;">
+                            You can view, edit, or copy the raw dataset config directly here. Make sure it is valid JSON.
+                        </p>
+                        <textarea id="raw-json-editor" class="input-control code-editor" style="min-height: 400px;"></textarea>
+                        <button class="btn btn-primary" onclick="applyRawJSON()" style="margin-top:16px;">
+                            <i data-lucide="check"></i> Apply JSON Content
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- 3. CONFIG GITHUB MODAL -->
+    <div class="modal" id="githubModal">
+        <div class="modal-card">
+            <h3 class="modal-title"><i data-lucide="key"></i> GitHub Token Configuration</h3>
+            <p class="modal-desc">
+                Please enter your GitHub Personal Access Token (PAT) to enable syncing updates directly to your live portfolio. This token is saved securely in your browser's local storage and is never sent to any external server.
+            </p>
+            <div class="form-group">
+                <label>GitHub Personal Access Token (PAT)</label>
+                <input type="password" id="githubTokenInput" class="input-control" placeholder="ghp_...">
+            </div>
+            <div class="grid-2" style="margin-top:16px;">
+                <div class="form-group">
+                    <label>Repo Owner</label>
+                    <input type="text" id="githubOwnerInput" class="input-control" value="luongtrongton1-ctrl">
+                </div>
+                <div class="form-group">
+                    <label>Repo Name</label>
+                    <input type="text" id="githubRepoInput" class="input-control" value="portfolio-landing">
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeGithubModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveGithubConfig()">Save Configuration</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. PROGRESS OVERLAY -->
+    <div class="progress-overlay" id="progressOverlay">
+        <div>
+            <div class="spinner"></div>
+            <div class="progress-step" id="progressStep">Uploading Data...</div>
+            <div class="progress-detail" id="progressDetail">Synchronizing changes with GitHub. Please wait.</div>
+        </div>
+    </div>
+
+    <script>
+        // Config data state
+        let portfolioData = null;
+
+        // On Load checks
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            
+            // Check auth state
+            const isLoggedIn = sessionStorage.getItem('admin_session') === 'true';
+            if (isLoggedIn) {
+                showDashboard();
+            } else {
+                document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('adminLayout').style.display = 'none';
+            }
+
+            // Load initial token if preset
+            const savedToken = localStorage.getItem('github_token');
+            if (savedToken) {
+                document.getElementById('githubTokenInput').value = savedToken;
+            } else {
+                localStorage.setItem('github_owner', 'luongtrongton1-ctrl');
+                localStorage.setItem('github_repo', 'portfolio-landing');
+            }
+        });
+
+        // 1. AUTHENTICATION HANDLERS
+        function handleLogin(event) {
+            event.preventDefault();
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value;
+            const errorDiv = document.getElementById('loginError');
+            const card = document.getElementById('loginCard');
+
+            if (user === 'tonne' && pass === 'Luongtrongtoan1@') {
+                sessionStorage.setItem('admin_session', 'true');
+                errorDiv.style.display = 'none';
+                showDashboard();
+            } else {
+                errorDiv.style.display = 'flex';
+                card.classList.add('shake');
+                setTimeout(() => card.classList.remove('shake'), 400);
+            }
+        }
+
+        function handleLogout() {
+            sessionStorage.removeItem('admin_session');
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('adminLayout').style.display = 'none';
+        }
+
+        // Show dashboard workspace
+        function showDashboard() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('adminLayout').style.display = 'grid';
+            loadData();
+        }
+
+        // 2. DATA LOAD & SYNC
+        function loadData() {
+            // First check draft
+            const draft = localStorage.getItem('draft_portfolio_data');
+            if (draft) {
+                try {
+                    portfolioData = JSON.parse(draft);
+                    populateForms();
+                    return;
+                } catch(e) {}
+            }
+
+            // Otherwise, fetch from server
+            fetch('data.json')
+                .then(r => r.json())
+                .then(data => {
+                    portfolioData = data;
+                    populateForms();
+                })
+                .catch(err => {
+                    alert('Error loading initial data.json. Creating fresh data schema.');
+                    // Fallback empty schema
+                    portfolioData = { hero: {}, trust: { stats: [], logos: [] }, about: { values: [], profile: {} }, services: { list: [] }, projects: { list: [] }, workflow: { steps: [] }, tech_stack: { categories: [] }, philosophy: { list: [] }, contact: { cta_box: {} }, footer: { links: [] } };
+                    populateForms();
+                });
+        }
+
+        // Switch panel tabs
+        function switchTab(tabName) {
+            document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.panel-tab-content').forEach(p => p.classList.remove('active'));
+            
+            // Set tab active
+            const clickedBtn = Array.from(document.querySelectorAll('.nav-tab')).find(btn => btn.onclick.toString().includes(tabName));
+            if (clickedBtn) clickedBtn.classList.add('active');
+            
+            const targetPanel = document.getElementById(`tab-${tabName}`);
+            if (targetPanel) targetPanel.classList.add('active');
+
+            // Set Title
+            const titleMap = {
+                hero: "Hero Section",
+                trust: "Trust & Statistics",
+                about: "About Me & Values",
+                services: "Services",
+                projects: "Featured Work & Projects",
+                workflow: "Process Timeline",
+                tech_stack: "Tech Stack & Skills",
+                philosophy: "Core Philosophy",
+                contact: "Contact Information & Footer",
+                raw_json: "Raw data.json Dataset"
+            };
+            document.getElementById('tabTitle').innerText = titleMap[tabName] || "Dashboard";
+
+            // If switching to raw JSON, stringify form contents first
+            if (tabName === 'raw_json') {
+                saveFormValues();
+                document.getElementById('raw-json-editor').value = JSON.stringify(portfolioData, null, 2);
+            }
+        }
+
+        // 3. POPULATE INPUT FORMS
+        function populateForms() {
+            if (!portfolioData) return;
+
+            // Hero
+            document.getElementById('hero-badge').value = portfolioData.hero?.badge || '';
+            document.getElementById('hero-title_part1').value = portfolioData.hero?.title_part1 || '';
+            document.getElementById('hero-title_part2').value = portfolioData.hero?.title_part2 || '';
+            document.getElementById('hero-description').value = portfolioData.hero?.description || '';
+            document.getElementById('hero-cta_primary_text').value = portfolioData.hero?.cta_primary_text || '';
+            document.getElementById('hero-cta_primary_link').value = portfolioData.hero?.cta_primary_link || '';
+            document.getElementById('hero-cta_secondary_text').value = portfolioData.hero?.cta_secondary_text || '';
+            document.getElementById('hero-cta_secondary_link').value = portfolioData.hero?.cta_secondary_link || '';
+            document.getElementById('hero-terminal_title').value = portfolioData.hero?.terminal_title || '';
+            document.getElementById('hero-terminal_code').value = portfolioData.hero?.terminal_code || '';
+
+            // Trust
+            document.getElementById('trust-logos_title').value = portfolioData.trust?.logos_title || '';
+            document.getElementById('trust-logos').value = (portfolioData.trust?.logos || []).join(', ');
+            renderTrustStats();
+
+            // About
+            document.getElementById('about-tag').value = portfolioData.about?.tag || '';
+            document.getElementById('about-title').value = portfolioData.about?.title || '';
+            document.getElementById('about-lead').value = portfolioData.about?.lead || '';
+            document.getElementById('about-paragraphs').value = (portfolioData.about?.paragraphs || []).join('\n');
+            renderAboutValues();
+            document.getElementById('about-profile-avatar').value = portfolioData.about?.profile?.avatar || '';
+            document.getElementById('about-profile-role').value = portfolioData.about?.profile?.role || '';
+            document.getElementById('about-profile-location').value = portfolioData.about?.profile?.location || '';
+            document.getElementById('about-profile-stats').value = (portfolioData.about?.profile?.stats || []).join(', ');
+
+            // Services
+            document.getElementById('services-tag').value = portfolioData.services?.tag || '';
+            document.getElementById('services-title').value = portfolioData.services?.title || '';
+            document.getElementById('services-description').value = portfolioData.services?.description || '';
+            renderServices();
+
+            // Projects
+            document.getElementById('projects-tag').value = portfolioData.projects?.tag || '';
+            document.getElementById('projects-title').value = portfolioData.projects?.title || '';
+            document.getElementById('projects-description').value = portfolioData.projects?.description || '';
+            renderProjects();
+
+            // Workflow
+            document.getElementById('workflow-tag').value = portfolioData.workflow?.tag || '';
+            document.getElementById('workflow-title').value = portfolioData.workflow?.title || '';
+            document.getElementById('workflow-description').value = portfolioData.workflow?.description || '';
+            renderWorkflowSteps();
+
+            // Tech Stack
+            document.getElementById('tech_stack-tag').value = portfolioData.tech_stack?.tag || '';
+            document.getElementById('tech_stack-title').value = portfolioData.tech_stack?.title || '';
+            renderTechCategories();
+
+            // Philosophy
+            document.getElementById('philosophy-tag').value = portfolioData.philosophy?.tag || '';
+            document.getElementById('philosophy-title').value = portfolioData.philosophy?.title || '';
+            renderPhilosophyCards();
+
+            // Contact
+            document.getElementById('contact-tag').value = portfolioData.contact?.tag || '';
+            document.getElementById('contact-title').value = portfolioData.contact?.title || '';
+            document.getElementById('contact-description').value = portfolioData.contact?.description || '';
+            document.getElementById('contact-email').value = portfolioData.contact?.email || '';
+            document.getElementById('contact-github').value = portfolioData.contact?.github || '';
+            document.getElementById('contact-linkedin').value = portfolioData.contact?.linkedin || '';
+            document.getElementById('contact-facebook').value = portfolioData.contact?.facebook || '';
+            document.getElementById('contact-cta_box-icon').value = portfolioData.contact?.cta_box?.icon || '';
+            document.getElementById('contact-cta_box-title').value = portfolioData.contact?.cta_box?.title || '';
+            document.getElementById('contact-cta_box-desc').value = portfolioData.contact?.cta_box?.desc || '';
+            document.getElementById('contact-cta_box-btn_text').value = portfolioData.contact?.cta_box?.btn_text || '';
+
+            // Footer
+            document.getElementById('footer-logo').value = portfolioData.footer?.logo || '';
+            document.getElementById('footer-tagline').value = portfolioData.footer?.tagline || '';
+            document.getElementById('footer-copyright').value = portfolioData.footer?.copyright || '';
+
+            lucide.createIcons();
+        }
+
+        // 4. COLLECT FORM VALUES TO STATE
+        function saveFormValues() {
+            if (!portfolioData) return;
+
+            // Hero
+            portfolioData.hero.badge = document.getElementById('hero-badge').value;
+            portfolioData.hero.title_part1 = document.getElementById('hero-title_part1').value;
+            portfolioData.hero.title_part2 = document.getElementById('hero-title_part2').value;
+            portfolioData.hero.description = document.getElementById('hero-description').value;
+            portfolioData.hero.cta_primary_text = document.getElementById('hero-cta_primary_text').value;
+            portfolioData.hero.cta_primary_link = document.getElementById('hero-cta_primary_link').value;
+            portfolioData.hero.cta_secondary_text = document.getElementById('hero-cta_secondary_text').value;
+            portfolioData.hero.cta_secondary_link = document.getElementById('hero-cta_secondary_link').value;
+            portfolioData.hero.terminal_title = document.getElementById('hero-terminal_title').value;
+            portfolioData.hero.terminal_code = document.getElementById('hero-terminal_code').value;
+
+            // Trust
+            portfolioData.trust.logos_title = document.getElementById('trust-logos_title').value;
+            portfolioData.trust.logos = document.getElementById('trust-logos').value.split(',').map(s => s.trim()).filter(Boolean);
+            // stats list is updated directly on change/addition
+
+            // About
+            portfolioData.about.tag = document.getElementById('about-tag').value;
+            portfolioData.about.title = document.getElementById('about-title').value;
+            portfolioData.about.lead = document.getElementById('about-lead').value;
+            portfolioData.about.paragraphs = document.getElementById('about-paragraphs').value.split('\n').map(s => s.trim()).filter(Boolean);
+            portfolioData.about.profile.avatar = document.getElementById('about-profile-avatar').value;
+            portfolioData.about.profile.role = document.getElementById('about-profile-role').value;
+            portfolioData.about.profile.location = document.getElementById('about-profile-location').value;
+            portfolioData.about.profile.stats = document.getElementById('about-profile-stats').value.split(',').map(s => s.trim()).filter(Boolean);
+
+            // Services
+            portfolioData.services.tag = document.getElementById('services-tag').value;
+            portfolioData.services.title = document.getElementById('services-title').value;
+            portfolioData.services.description = document.getElementById('services-description').value;
+
+            // Projects
+            portfolioData.projects.tag = document.getElementById('projects-tag').value;
+            portfolioData.projects.title = document.getElementById('projects-title').value;
+            portfolioData.projects.description = document.getElementById('projects-description').value;
+
+            // Workflow
+            portfolioData.workflow.tag = document.getElementById('workflow-tag').value;
+            portfolioData.workflow.title = document.getElementById('workflow-title').value;
+            portfolioData.workflow.description = document.getElementById('workflow-description').value;
+
+            // Tech Stack
+            portfolioData.tech_stack.tag = document.getElementById('tech_stack-tag').value;
+            portfolioData.tech_stack.title = document.getElementById('tech_stack-title').value;
+
+            // Philosophy
+            portfolioData.philosophy.tag = document.getElementById('philosophy-tag').value;
+            portfolioData.philosophy.title = document.getElementById('philosophy-title').value;
+
+            // Contact
+            portfolioData.contact.tag = document.getElementById('contact-tag').value;
+            portfolioData.contact.title = document.getElementById('contact-title').value;
+            portfolioData.contact.description = document.getElementById('contact-description').value;
+            portfolioData.contact.email = document.getElementById('contact-email').value;
+            portfolioData.contact.github = document.getElementById('contact-github').value;
+            portfolioData.contact.linkedin = document.getElementById('contact-linkedin').value;
+            portfolioData.contact.facebook = document.getElementById('contact-facebook').value;
+            portfolioData.contact.cta_box.icon = document.getElementById('contact-cta_box-icon').value;
+            portfolioData.contact.cta_box.title = document.getElementById('contact-cta_box-title').value;
+            portfolioData.contact.cta_box.desc = document.getElementById('contact-cta_box-desc').value;
+            portfolioData.contact.cta_box.btn_text = document.getElementById('contact-cta_box-btn_text').value;
+
+            // Footer
+            portfolioData.footer.logo = document.getElementById('footer-logo').value;
+            portfolioData.footer.tagline = document.getElementById('footer-tagline').value;
+            portfolioData.footer.copyright = document.getElementById('footer-copyright').value;
+        }
+
+        // Apply raw JSON
+        function applyRawJSON() {
+            const rawVal = document.getElementById('raw-json-editor').value;
+            try {
+                portfolioData = JSON.parse(rawVal);
+                populateForms();
+                alert('JSON successfully loaded into editor controls!');
+            } catch(e) {
+                alert('Invalid JSON! Please check for formatting errors.');
+            }
+        }
+
+        // 5. RENDERING LISTS
+        // Trust stats list
+        function renderTrustStats() {
+            const container = document.getElementById('trust-stats-container');
+            container.innerHTML = '';
+            (portfolioData.trust?.stats || []).forEach((stat, idx) => {
+                container.innerHTML += `
+                    <div class="list-item-box grid-2">
+                        <div class="form-group">
+                            <label>Value / Number</label>
+                            <input type="text" value="${stat.number}" class="input-control" onchange="updateTrustStat(${idx}, 'number', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Label</label>
+                            <input type="text" value="${stat.label}" class="input-control" onchange="updateTrustStat(${idx}, 'label', this.value)">
+                        </div>
+                        <button class="list-item-delete" onclick="deleteTrustStat(${idx})">
+                            <i data-lucide="trash-2" style="width: 18px;"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            lucide.createIcons();
+        }
+
+        function updateTrustStat(idx, key, val) {
+            portfolioData.trust.stats[idx][key] = val;
+        }
+        function addTrustStat() {
+            if(!portfolioData.trust.stats) portfolioData.trust.stats = [];
+            portfolioData.trust.stats.push({ number: '100+', label: 'New Metric' });
+            renderTrustStats();
+        }
+        function deleteTrustStat(idx) {
+            portfolioData.trust.stats.splice(idx, 1);
+            renderTrustStats();
+        }
+
+        // About Values List
+        function renderAboutValues() {
+            const container = document.getElementById('about-values-container');
+            container.innerHTML = '';
+            (portfolioData.about?.values || []).forEach((val, idx) => {
+                container.innerHTML += `
+                    <div class="list-item-box">
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Lucide Icon Name</label>
+                                <input type="text" value="${val.icon}" class="input-control" onchange="updateAboutValue(${idx}, 'icon', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>Value Title</label>
+                                <input type="text" value="${val.title}" class="input-control" onchange="updateAboutValue(${idx}, 'title', this.value)">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 12px; margin-bottom: 0;">
+                            <label>Description</label>
+                            <textarea class="input-control" onchange="updateAboutValue(${idx}, 'desc', this.value)">${val.desc}</textarea>
+                        </div>
+                    </div>
+                `;
+            });
+            lucide.createIcons();
+        }
+        function updateAboutValue(idx, key, val) {
+            portfolioData.about.values[idx][key] = val;
+        }
+
+        // Services list
+        function renderServices() {
+            const container = document.getElementById('services-list-container');
+            container.innerHTML = '';
+            (portfolioData.services?.list || []).forEach((srv, idx) => {
+                container.innerHTML += `
+                    <div class="list-item-box">
+                        <div class="grid-3">
+                            <div class="form-group">
+                                <label>Lucide Icon</label>
+                                <input type="text" value="${srv.icon}" class="input-control" onchange="updateService(${idx}, 'icon', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>Service Title</label>
+                                <input type="text" value="${srv.title}" class="input-control" onchange="updateService(${idx}, 'title', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>Outcome badge</label>
+                                <input type="text" value="${srv.outcome}" class="input-control" onchange="updateService(${idx}, 'outcome', this.value)">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top:12px;">
+                            <label>Service Description</label>
+                            <textarea class="input-control" onchange="updateService(${idx}, 'desc', this.value)">${srv.desc}</textarea>
+                        </div>
+                        <div class="grid-2" style="margin-top:12px;">
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label>CTA Link</label>
+                                <input type="text" value="${srv.link || ''}" class="input-control" onchange="updateService(${idx}, 'link', this.value)">
+                            </div>
+                            <div class="form-group" style="margin-bottom:0; display:flex; align-items:center; gap:8px; padding-top:24px;">
+                                <input type="checkbox" id="service-large-${idx}" ${srv.large ? 'checked' : ''} onchange="updateService(${idx}, 'large', this.checked)">
+                                <label for="service-large-${idx}" style="margin:0; cursor:pointer;">Double-width Bento Card layout</label>
+                            </div>
+                        </div>
+                        <button class="list-item-delete" onclick="deleteService(${idx})">
+                            <i data-lucide="trash-2" style="width: 18px;"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            lucide.createIcons();
+        }
+        function updateService(idx, key, val) {
+            portfolioData.services.list[idx][key] = val;
+        }
+        function addService() {
+            if(!portfolioData.services.list) portfolioData.services.list = [];
+            portfolioData.services.list.push({ icon: 'bot', title: 'New Service', desc: 'Description of the service here.', outcome: 'Save hours', large: false });
+            renderServices();
+        }
+        function deleteService(idx) {
+            portfolioData.services.list.splice(idx, 1);
+            renderServices();
+        }
+
+        // Projects list
+        function renderProjects() {
+            const container = document.getElementById('projects-list-container');
+            container.innerHTML = '';
+            (portfolioData.projects?.list || []).forEach((proj, idx) => {
+                container.innerHTML += `
+                    <div class="list-item-box">
+                        <div class="grid-3">
+                            <div class="form-group">
+                                <label>Lucide Icon</label>
+                                <input type="text" value="${proj.icon}" class="input-control" onchange="updateProjectField(${idx}, 'icon', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>Tag category</label>
+                                <input type="text" value="${proj.tag}" class="input-control" onchange="updateProjectField(${idx}, 'tag', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>Project Name</label>
+                                <input type="text" value="${proj.title}" class="input-control" onchange="updateProjectField(${idx}, 'title', this.value)">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top:12px;">
+                            <label>Description</label>
+                            <textarea class="input-control" onchange="updateProjectField(${idx}, 'desc', this.value)">${proj.desc}</textarea>
+                        </div>
+                        <div class="grid-2" style="margin-top:12px;">
+                            <div class="form-group">
+                                <label>Tech Stack list (Comma separated)</label>
+                                <input type="text" value="${(proj.tech || []).join(', ')}" class="input-control" onchange="updateProjectTech(${idx}, this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>Case Study Link</label>
+                                <input type="text" value="${proj.link || ''}" class="input-control" onchange="updateProjectField(${idx}, 'link', this.value)">
+                            </div>
+                        </div>
+                        
+                        <!-- Metrics sublist -->
+                        <div style="margin-top:12px;">
+                            <label style="font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase;">Metrics Highlight (Exactly 3)</label>
+                            <div class="grid-3" style="margin-top:6px;">
+                                ${[0,1,2].map(mIdx => {
+                                    const metric = (proj.metrics || [])[mIdx] || { value: '', label: '' };
+                                    return `
+                                        <div style="background:var(--surface); border:1px solid var(--border); padding:8px; border-radius:6px;">
+                                            <input type="text" placeholder="Value (e.g. 85%)" value="${metric.value}" class="input-control" style="padding:6px; font-size:13px; margin-bottom:4px;" onchange="updateProjectMetric(${idx}, ${mIdx}, 'value', this.value)">
+                                            <input type="text" placeholder="Label (e.g. Saved)" value="${metric.label}" class="input-control" style="padding:6px; font-size:12px;" onchange="updateProjectMetric(${idx}, ${mIdx}, 'label', this.value)">
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                        
+                        <button class="list-item-delete" onclick="deleteProject(${idx})">
+                            <i data-lucide="trash-2" style="width: 18px;"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            lucide.createIcons();
+        }
+        function updateProjectField(idx, key, val) {
+            portfolioData.projects.list[idx][key] = val;
+        }
+        function updateProjectTech(idx, val) {
+            portfolioData.projects.list[idx].tech = val.split(',').map(s => s.trim()).filter(Boolean);
+        }
+        function updateProjectMetric(idx, mIdx, key, val) {
+            if(!portfolioData.projects.list[idx].metrics) portfolioData.projects.list[idx].metrics = [];
+            while(portfolioData.projects.list[idx].metrics.length <= mIdx) {
+                portfolioData.projects.list[idx].metrics.push({ value: '', label: '' });
+            }
+            portfolioData.projects.list[idx].metrics[mIdx][key] = val;
+        }
+        function addProject() {
+            if(!portfolioData.projects.list) portfolioData.projects.list = [];
+            portfolioData.projects.list.push({ icon: 'workflow', tag: 'New', title: 'Sample Project', desc: 'Case description', tech: ['Python'], metrics: [{value:'99%', label:'Satisfied'}, {value:'2x', label:'Faster'}, {value:'0', label:'Errors'}], link: '#contact' });
+            renderProjects();
+        }
+        function deleteProject(idx) {
+            portfolioData.projects.list.splice(idx, 1);
+            renderProjects();
+        }
+
+        // Workflow Steps List
+        function renderWorkflowSteps() {
+            const container = document.getElementById('workflow-steps-container');
+            container.innerHTML = '';
+            (portfolioData.workflow?.steps || []).forEach((step, idx) => {
+                container.innerHTML += `
+                    <div class="list-item-box">
+                        <div class="form-group">
+                            <label>Step Title</label>
+                            <input type="text" value="${step.title}" class="input-control" onchange="updateWorkflowStep(${idx}, 'title', this.value)">
+                        </div>
+                        <div class="form-group" style="margin-top:12px; margin-bottom:0;">
+                            <label>Step Description</label>
+                            <textarea class="input-control" onchange="updateWorkflowStep(${idx}, 'desc', this.value)">${step.desc}</textarea>
+                        </div>
+                        <button class="list-item-delete" onclick="deleteWorkflowStep(${idx})">
+                            <i data-lucide="trash-2" style="width: 18px;"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            lucide.createIcons();
+        }
+        function updateWorkflowStep(idx, key, val) {
+            portfolioData.workflow.steps[idx][key] = val;
+        }
+        function addWorkflowStep() {
+            if(!portfolioData.workflow.steps) portfolioData.workflow.steps = [];
+            portfolioData.workflow.steps.push({ title: 'New Process Phase', desc: 'Details of what happens in this workflow step.' });
+            renderWorkflowSteps();
+        }
+        function deleteWorkflowStep(idx) {
+            portfolioData.workflow.steps.splice(idx, 1);
+            renderWorkflowSteps();
+        }
+
+        // Tech Categories List
+        function renderTechCategories() {
+            const container = document.getElementById('tech_stack-categories-container');
+            container.innerHTML = '';
+            (portfolioData.tech_stack?.categories || []).forEach((cat, idx) => {
+                container.innerHTML += `
+                    <div class="list-item-box">
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Lucide Icon</label>
+                                <input type="text" value="${cat.icon}" class="input-control" onchange="updateTechCategoryField(${idx}, 'icon', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>Category Name</label>
+                                <input type="text" value="${cat.name}" class="input-control" onchange="updateTechCategoryField(${idx}, 'name', this.value)">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top:12px; margin-bottom:0;">
+                            <label>Items (Comma separated list)</label>
+                            <input type="text" value="${(cat.items || []).join(', ')}" class="input-control" onchange="updateTechCategoryItems(${idx}, this.value)">
+                        </div>
+                        <button class="list-item-delete" onclick="deleteTechCategory(${idx})">
+                            <i data-lucide="trash-2" style="width: 18px;"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            lucide.createIcons();
+        }
+        function updateTechCategoryField(idx, key, val) {
+            portfolioData.tech_stack.categories[idx][key] = val;
+        }
+        function updateTechCategoryItems(idx, val) {
+            portfolioData.tech_stack.categories[idx].items = val.split(',').map(s => s.trim()).filter(Boolean);
+        }
+        function addTechCategory() {
+            if(!portfolioData.tech_stack.categories) portfolioData.tech_stack.categories = [];
+            portfolioData.tech_stack.categories.push({ icon: 'server', name: 'Server', items: ['NodeJS', 'Python'] });
+            renderTechCategories();
+        }
+        function deleteTechCategory(idx) {
+            portfolioData.tech_stack.categories.splice(idx, 1);
+            renderTechCategories();
+        }
+
+        // Philosophy Cards list
+        function renderPhilosophyCards() {
+            const container = document.getElementById('philosophy-list-container');
+            container.innerHTML = '';
+            (portfolioData.philosophy?.list || []).forEach((phil, idx) => {
+                container.innerHTML += `
+                    <div class="list-item-box">
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Lucide Icon</label>
+                                <input type="text" value="${phil.icon}" class="input-control" onchange="updatePhilosophyCard(${idx}, 'icon', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" value="${phil.title}" class="input-control" onchange="updatePhilosophyCard(${idx}, 'title', this.value)">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top:12px; margin-bottom:0;">
+                            <label>Philosophy Text</label>
+                            <textarea class="input-control" onchange="updatePhilosophyCard(${idx}, 'desc', this.value)">${phil.desc}</textarea>
+                        </div>
+                    </div>
+                `;
+            });
+            lucide.createIcons();
+        }
+        function updatePhilosophyCard(idx, key, val) {
+            portfolioData.philosophy.list[idx][key] = val;
+        }
+
+        // 6. SAVE ACTION: LOCAL DRAFT PREVIEW
+        function saveDraft() {
+            saveFormValues();
+            localStorage.setItem('draft_portfolio_data', JSON.stringify(portfolioData));
+            alert('Draft saved to browser local storage! Reload your landing page to see instant edits.');
+        }
+
+        function configureGithub() {
+            // Fill inputs with saved storage values
+            document.getElementById('githubTokenInput').value = localStorage.getItem('github_token') || '';
+            document.getElementById('githubOwnerInput').value = localStorage.getItem('github_owner') || 'luongtrongton1-ctrl';
+            document.getElementById('githubRepoInput').value = localStorage.getItem('github_repo') || 'portfolio-landing';
+            
+            document.getElementById('githubModal').style.display = 'flex';
+        }
+
+        function closeGithubModal() {
+            document.getElementById('githubModal').style.display = 'none';
+        }
+
+        function saveGithubConfig() {
+            const token = document.getElementById('githubTokenInput').value.trim();
+            const owner = document.getElementById('githubOwnerInput').value.trim();
+            const repo = document.getElementById('githubRepoInput').value.trim();
+
+            if (!token) {
+                alert('GitHub Personal Access Token is required.');
+                return;
+            }
+
+            localStorage.setItem('github_token', token);
+            localStorage.setItem('github_owner', owner);
+            localStorage.setItem('github_repo', repo);
+            closeGithubModal();
+            alert('GitHub configuration saved!');
+        }
+
+        async function publishToGithub() {
+            // First save active inputs to state
+            saveFormValues();
+            
+            // Gather github details
+            const token = localStorage.getItem('github_token');
+            const owner = localStorage.getItem('github_owner') || 'luongtrongton1-ctrl';
+            const repo = localStorage.getItem('github_repo') || 'portfolio-landing';
+
+            if (!token) {
+                alert('Please configure your GitHub Token first by clicking the "GitHub Key" button.');
+                configureGithub();
+                return;
+            }
+
+            // Show loading screen
+            const overlay = document.getElementById('progressOverlay');
+            const progressStep = document.getElementById('progressStep');
+            const progressDetail = document.getElementById('progressDetail');
+
+            overlay.style.display = 'flex';
+            progressStep.innerText = 'Connecting to GitHub...';
+            progressDetail.innerText = `Fetching repository details for ${owner}/${repo}`;
+
+            try {
+                // Fetch file SHA first (required to overwrite in GitHub Contents API)
+                const apiPath = `https://api.github.com/repos/${owner}/${repo}/contents/data.json`;
+                let sha = null;
+                
+                const response = await fetch(apiPath, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (response.ok) {
+                    const fileData = await response.json();
+                    sha = fileData.sha;
+                } else if (response.status !== 404) {
+                    throw new Error(`Failed to check existing data file. Status: ${response.status}`);
+                }
+
+                // Update Progress Screen
+                progressStep.innerText = 'Writing configuration dataset...';
+                progressDetail.innerText = 'Creating base64 JSON payload and sending commit request.';
+
+                // Prepare Content Commit payload
+                const contentJsonString = JSON.stringify(portfolioData, null, 2);
+                const base64Data = btoa(unescape(encodeURIComponent(contentJsonString)));
+
+                const commitPayload = {
+                    message: "chore: update portfolio landing page content via Admin Panel",
+                    content: base64Data,
+                    branch: "main"
+                };
+                if (sha) {
+                    commitPayload.sha = sha;
+                }
+
+                const commitResponse = await fetch(apiPath, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/vnd.github.v3+json'
+                    },
+                    body: JSON.stringify(commitPayload)
+                });
+
+                if (!commitResponse.ok) {
+                    const errBody = await commitResponse.json();
+                    throw new Error(errBody.message || 'Error updating data.json file');
+                }
+
+                // Success
+                progressStep.innerText = 'Sync Complete! 🚀';
+                progressDetail.innerText = 'The updates are pushed to GitHub. Vercel will automatically redeploy the changes in 20-30 seconds.';
+                
+                // Clear localstorage draft since it is now published
+                localStorage.removeItem('draft_portfolio_data');
+
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    alert('Successfully published to GitHub! Changes will be live on Vercel momentarily.');
+                }, 3000);
+
+            } catch (err) {
+                overlay.style.display = 'none';
+                console.error(err);
+                alert(`Error publishing to GitHub: ${err.message}`);
+            }
+        }
+    </script>
+</body>
+</html>
